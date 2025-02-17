@@ -1,0 +1,15 @@
+$ django-admin startproject book_manage . (Para iniciar el proyecto donde estamos con el nombre del proyecto)
+
+$ uv init --bare (iniciamos uv)
+
+$ add django o pip install django
+$ uv add django
+$ django-admin startapp books (creamos nuestra app)
+
+$ code .
+
+- Añadir la app a aplications en settings 'books'
+
+Crear modelo en modelo.py
+$  python manage.py makemigrations (migrar, a la altura de manage.py)
+$  python manage.py migrate (aplicar cambios en la base de datos)
