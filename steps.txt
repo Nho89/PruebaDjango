@@ -9,7 +9,11 @@ $ django-admin startapp books (creamos nuestra app)
 $ code .
 
 - Añadir la app a aplications en settings 'books'
-
+$ python manage.py createsuperuser  (crear súper usuario)
 Crear modelo en modelo.py
-$  python manage.py makemigrations (migrar, a la altura de manage.py)
-$  python manage.py migrate (aplicar cambios en la base de datos)
+*Siempre que hay un cambio, pasar los siguientes comandos: 
+    $  python manage.py makemigrations (migrar, a la altura de manage.py)
+    $  python manage.py migrate (aplicar cambios en la base de datos)
+$  python manage.py runserver (levantar el servidor)
+entrar a la url/admin
+
