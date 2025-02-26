@@ -17,3 +17,13 @@ Crear modelo en modelo.py
 $  python manage.py runserver (levantar el servidor)
 entrar a la url/admin
 
+
+
+rest framework:
+uv add djangorestframework
+
+uv add mysqlclient python-dotenv
+
+
+
+python manage.py dumpdata > datadump.json

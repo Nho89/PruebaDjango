@@ -1,27 +1,38 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Book
+from .serializer import BookSerializer
+from rest_framework.response import Response
+from rest_framework.decorators import api_view
+from .forms import FormBook
 
+
+@api_view(['GET'])
 def getAllBook(request):
     books = Book.objects.all()
-    return render(request, 'books/books.html', {'libros': books})
+    serializer = BookSerializer(books, many=True)
+    return Response(serializer.data)
+    # return render(request, 'books/books.html', {'libros': books})
 
+
+@api_view(['POST'])
 def createBook(request):
     if request.method == 'POST':
-        form = formBook(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('books')
-    else:
-        form = formBook()
-    return render(request, 'books/createBook.html', {'form': form})
+        serializer = BookSerializer(data=request.data) 
+        if serializer.is_valid():
+            serializer.save()  
+            return redirect('books')  
+        else:
+            return Response(serializer.errors, status=400)
+    return render(request, 'books/books.html', {'form': serializer})
 
+@api_view(['PUT'])
 def updateBook(request, id):
     book = get_object_or_404(Book, pk=id)
-    if request.method == 'PUT':
-        form = formBook(request.PUT, instance = book)
-        if form.is_valid():
-            form.save()
-            return redirect('books')
-        else:
-            form = formBook(instance = book)
-        return render(request, 'books/updateBook.html', {'form': form, 'libro': book})
+    serializer = BookSerializer(book, data=request.data, partial=True)  
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data, status=200)  
+    return Response(serializer.errors, status=400) 
+
+    
+        
